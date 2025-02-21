@@ -1,0 +1,28 @@
+        name: Deployment_21Feb
+
+        on:
+          workflow_dispatch:
+
+
+        jobs:
+          build:
+           name: GITHUB
+           runs-on: ubuntu-latest
+           steps:
+                - name: Check out the repo
+                  uses: actions/checkout@v3  
+            
+
+    #---------------- SONARQUBE
+          SONARQUBE:
+            needs: [build]
+            runs-on: ubuntu-latest
+            environment:
+              name: DEVELOPMENT
+            steps:
+              - uses: actions/checkout@master
+              - name: SonarQube Scan
+                uses: sonarsource/sonarqube-scan-action@master
+            env:
+                SONAR_TOKEN: sqp_596b2487a7c863532724b2ea1203438f9d2edc85
+                SONAR_HOST_URL: http://13.60.223.116:9000/
